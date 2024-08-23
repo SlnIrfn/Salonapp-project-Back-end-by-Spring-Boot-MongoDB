@@ -26,11 +26,11 @@ public class Barber {
     private String baberphoto;
 
     public String getId() {
-        return id;
+        return  id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String barberid) {
+        this.id = barberid;
     }
 
     public String getBabername() {
