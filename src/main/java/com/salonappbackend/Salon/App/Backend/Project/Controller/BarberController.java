@@ -7,7 +7,9 @@ import com.salonappbackend.Salon.App.Backend.Project.Services.BarberService;
 import com.salonappbackend.Salon.App.Backend.Project.model.Barber;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.parser.Entity;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,4 +29,21 @@ public class BarberController {
     public Optional<Barber> getBarber(@PathVariable String id){
         return barberService.getBarberByID(id);
     }
+
+    @GetMapping("/getAllBarbers")
+    public ResponseEntity<List<Barber>> getAllBarbers(){
+        List<Barber> barbers = barberService.getAllBarbers();
+        return new ResponseEntity<>(barbers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteBarber/{id}")
+    public ResponseEntity<String> deleteBarber(@PathVariable String id){
+        boolean isRemoved = barberService.deleteBarberByID(id);
+        if(!isRemoved){
+            return new ResponseEntity<>("Barber not found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("Barber deleted successfully", HttpStatus.OK);
+    }
+
+
 }
